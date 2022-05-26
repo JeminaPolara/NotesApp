@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/ic_drag_handle"
+        android:tag="checklistview_draghandle" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:tag="checklistview_checkbox" />
+
+    <com.note.checklistview.widgets.EditTextMultiLineNoEnter
+        style="@style/CheckListViewEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start"
+        android:imeOptions="actionNext"
+        android:inputType="textCapSentences|textMultiLine"
+        android:tag="checklistview_edittext" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/icon_selector"
+        android:src="@drawable/ic_cancel_black_18dp"
+        android:tag="checklistview_deleteicon"
+        android:visibility="invisible" />
+
+</LinearLayout>

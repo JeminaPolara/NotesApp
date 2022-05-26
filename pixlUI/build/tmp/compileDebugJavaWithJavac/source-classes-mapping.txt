@@ -1,0 +1,38 @@
+it/feio/android/pixlui/links/RegexPatternsConstants.java
+ com.note.pixlui.links.RegexPatternsConstants
+com/neopixl/pixlui/intern/CustomPasswordTransformationMethod.java
+ com.neopixl.pixlui.intern.CustomPasswordTransformationMethod
+ com.neopixl.pixlui.intern.CustomPasswordTransformationMethod$CustomPasswordCharSequence
+com/android/export/AllCapsTransformationMethod.java
+ com.android.export.AllCapsTransformationMethod
+it/feio/android/pixlui/links/InternalURLSpan.java
+ com.note.pixlui.links.InternalURLSpan
+com/android/export/TransformationMethod2.java
+ com.android.export.TransformationMethod2
+com/neopixl/pixlui/components/textview/TextView.java
+ com.neopixl.pixlui.components.textview.TextView
+it/feio/android/pixlui/links/Hyperlink.java
+ com.note.pixlui.links.Hyperlink
+com/neopixl/pixlui/components/textview/EllipsizingTextView.java
+ com.neopixl.pixlui.components.textview.EllipsizingTextView
+ com.neopixl.pixlui.components.textview.EllipsizingTextView$EllipsizeListener
+com/neopixl/pixlui/intern/PixlUIContants.java
+ com.neopixl.pixlui.intern.PixlUIContants
+it/feio/android/pixlui/links/TextLinkClickListener.java
+ com.note.pixlui.links.TextLinkClickListener
+com/neopixl/pixlui/BuildConfig.java
+ com.neopixl.pixlui.BuildConfig
+com/neopixl/pixlui/components/textview/FontFactory.java
+ com.neopixl.pixlui.components.textview.FontFactory
+it/feio/android/pixlui/links/UrlCompleter.java
+ com.note.pixlui.links.UrlCompleter
+com/neopixl/pixlui/components/edittext/EditTextBatchListener.java
+ com.neopixl.pixlui.components.edittext.EditTextBatchListener
+com/neopixl/pixlui/components/edittext/EditTextFocusListener.java
+ com.neopixl.pixlui.components.edittext.EditTextFocusListener
+com/neopixl/pixlui/components/edittext/EditText.java
+ com.neopixl.pixlui.components.edittext.EditText
+ com.neopixl.pixlui.components.edittext.EditText$1
+ com.neopixl.pixlui.components.edittext.EditText$2
+ com.neopixl.pixlui.components.edittext.EditText$CustomInputConnection
+ com.neopixl.pixlui.components.edittext.EditText$CustomTextWatcher

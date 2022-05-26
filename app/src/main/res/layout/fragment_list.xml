@@ -1,0 +1,142 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_additional_margin"
+    android:layout_marginRight="@dimen/activity_additional_margin">
+
+    <LinearLayout
+        android:id="@+id/list_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/idActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/idIvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="?attr/homeAsUpIndicator"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/idTvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/idIvBack"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/horizontal_margin"
+            android:paddingEnd="@dimen/horizontal_margin"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/search_query"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:textAppearance="@style/Text.Small" />
+
+            <ImageView
+                android:id="@+id/search_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/horizontal_margin"
+                android:paddingTop="10dp"
+                android:paddingEnd="@dimen/horizontal_margin"
+                android:src="@drawable/ic_cancel_black_18dp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/listFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.note.remindernote.views.RecyclerViewEmptySupport
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:divider="@null"
+                android:dividerHeight="8dp"
+                android:drawSelectorOnTop="true"
+                android:listSelector="@drawable/icon_selector"
+                android:paddingLeft="8dp"
+                android:paddingTop="@dimen/padding_half"
+                android:paddingRight="8dp"
+                android:scrollbars="none" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/empty_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/no_items_in_list"
+                    android:textColor="@color/list_note_dates"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    pixlui:typeface="Roboto-Regular.ttf" />
+            </LinearLayout>
+
+
+            <com.pnikosis.materialishprogress.ProgressWheel
+                android:id="@+id/progress_wheel"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/undobar"
+        layout="@layout/undobar" />
+
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/snackbar_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom" />
+
+    <include
+        android:id="@+id/fab"
+        layout="@layout/fab" />
+
+</FrameLayout>

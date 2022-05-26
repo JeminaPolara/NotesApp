@@ -1,0 +1,45 @@
+it/feio/android/simplegallery/util/BitmapUtils.java
+ com.note.simplegallery.util.BitmapUtils
+it/feio/android/simplegallery/models/listeners/OnViewTouchedListener.java
+ com.note.simplegallery.models.listeners.OnViewTouchedListener
+com/note/simplegallery/BuildConfig.java
+ com.note.simplegallery.BuildConfig
+it/feio/android/simplegallery/util/SystemUiHiderHoneycomb.java
+ com.note.simplegallery.util.SystemUiHiderHoneycomb
+ com.note.simplegallery.util.SystemUiHiderHoneycomb$1
+it/feio/android/simplegallery/GalleryPagerFragment.java
+ com.note.simplegallery.GalleryPagerFragment
+it/feio/android/simplegallery/views/TouchImageView.java
+ com.note.simplegallery.views.TouchImageView
+ com.note.simplegallery.views.TouchImageView$1
+ com.note.simplegallery.views.TouchImageView$CompatScroller
+ com.note.simplegallery.views.TouchImageView$DoubleTapZoom
+ com.note.simplegallery.views.TouchImageView$Fling
+ com.note.simplegallery.views.TouchImageView$GestureListener
+ com.note.simplegallery.views.TouchImageView$OnTouchImageViewListener
+ com.note.simplegallery.views.TouchImageView$PrivateOnTouchListener
+ com.note.simplegallery.views.TouchImageView$ScaleListener
+ com.note.simplegallery.views.TouchImageView$State
+ com.note.simplegallery.views.TouchImageView$ZoomVariables
+it/feio/android/simplegallery/views/GalleryViewPager.java
+ com.note.simplegallery.views.GalleryViewPager
+it/feio/android/simplegallery/async/ImageLoadTask.java
+ com.note.simplegallery.async.ImageLoadTask
+it/feio/android/simplegallery/models/ui/DepthPageTransformer.java
+ com.note.simplegallery.models.ui.DepthPageTransformer
+it/feio/android/simplegallery/util/SystemUiHider.java
+ com.note.simplegallery.util.SystemUiHider
+ com.note.simplegallery.util.SystemUiHider$1
+ com.note.simplegallery.util.SystemUiHider$OnVisibilityChangeListener
+it/feio/android/simplegallery/models/ui/ZoomOutPageTransformer.java
+ com.note.simplegallery.models.ui.ZoomOutPageTransformer
+it/feio/android/simplegallery/util/Display.java
+ com.note.simplegallery.util.Display
+it/feio/android/simplegallery/models/ui/CoverFlowPageTransformer.java
+ com.note.simplegallery.models.ui.CoverFlowPageTransformer
+it/feio/android/simplegallery/util/SystemUiHiderBase.java
+ com.note.simplegallery.util.SystemUiHiderBase
+it/feio/android/simplegallery/models/ui/RotationPageTransformer.java
+ com.note.simplegallery.models.ui.RotationPageTransformer
+it/feio/android/simplegallery/models/GalleryPagerAdapter.java
+ com.note.simplegallery.models.GalleryPagerAdapter

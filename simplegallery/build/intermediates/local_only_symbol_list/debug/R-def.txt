@@ -1,0 +1,20 @@
+R_DEF: Internal format may change without notice
+local
+attr? metaButtonBarButtonStyle
+attr? metaButtonBarStyle
+color black_overlay
+drawable image_broken
+drawable play_no_bg
+id image
+layout fragment_screen_slide_page
+string app_name
+string dummy_button
+string dummy_content
+string image
+style AppBaseTheme
+style AppTheme
+style ButtonBar
+style ButtonBarButton
+style FullscreenActionBarStyle
+style FullscreenTheme
+styleable ButtonBarContainerTheme metaButtonBarStyle metaButtonBarButtonStyle

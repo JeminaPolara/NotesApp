@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Jemina\Notes\simplegallery\src\main\res"/><source path="E:\Jemina\Notes\simplegallery\build\generated\res\rs\debug"/><source path="E:\Jemina\Notes\simplegallery\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Jemina\Notes\simplegallery\src\main\res"><file name="image_broken" path="E:\Jemina\Notes\simplegallery\src\main\res\drawable-nodpi\image_broken.png" qualifiers="nodpi-v4" type="drawable"/><file name="play_no_bg" path="E:\Jemina\Notes\simplegallery\src\main\res\drawable-nodpi\play_no_bg.png" qualifiers="nodpi-v4" type="drawable"/><file name="fragment_screen_slide_page" path="E:\Jemina\Notes\simplegallery\src\main\res\layout\fragment_screen_slide_page.xml" qualifiers="" type="layout"/><file path="E:\Jemina\Notes\simplegallery\src\main\res\values\attrs.xml" qualifiers=""><declare-styleable name="ButtonBarContainerTheme">
+        <attr format="reference" name="metaButtonBarStyle"/>
+        <attr format="reference" name="metaButtonBarButtonStyle"/>
+    </declare-styleable></file><file path="E:\Jemina\Notes\simplegallery\src\main\res\values\colors.xml" qualifiers=""><color name="black_overlay">#66000000</color></file><file path="E:\Jemina\Notes\simplegallery\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">SimpleGallery</string><string name="dummy_button">Dummy Button</string><string name="dummy_content">DUMMY\nCONTENT</string><string name="image">image</string></file><file path="E:\Jemina\Notes\simplegallery\src\main\res\values\styles.xml" qualifiers=""><style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        
+    </style><style name="AppTheme" parent="AppBaseTheme">
+        
+    </style><style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">@style/ButtonBar</item>
+        <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+    </style><style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style><style name="ButtonBarButton"/></file><file path="E:\Jemina\Notes\simplegallery\src\main\res\values-v11\styles.xml" qualifiers="v11"><style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        
+    </style><style name="FullscreenTheme" parent="android:Theme.Holo">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style><style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style></file><file path="E:\Jemina\Notes\simplegallery\src\main\res\values-v14\styles.xml" qualifiers="v14"><style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        
+    </style></file></source><source path="E:\Jemina\Notes\simplegallery\build\generated\res\rs\debug"/><source path="E:\Jemina\Notes\simplegallery\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Jemina\Notes\simplegallery\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="E:\Jemina\Notes\simplegallery\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="ButtonBarContainerTheme">
+        <attr format="reference" name="metaButtonBarStyle"/>
+        <attr format="reference" name="metaButtonBarButtonStyle"/>
+    </declare-styleable></configuration></mergedItems></merger>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Jemina/Notes/app/src/main/res/drawable/bg_card.xml" value="0.36512820512820515" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/drawable/branded_background.xml" value="0.3111111111111111" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/drawable/icon_selector.xml" value="0.3111111111111111" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/drawable/list_selector_focused.xml" value="0.33611111111111114" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/drawable/list_selector_pressed.xml" value="0.3111111111111111" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout-sw600dp/password_buttons.xml" value="0.266015625" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/action_bar.xml" value="0.2814814814814815" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_about.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_add_reminder.xml" value="0.2638888888888889" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_category.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_changelog.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_gallery.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_main.xml" value="0.340625" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_note_infos.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_password.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_settings.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_stats.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_stats_note.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/activity_widget_configuration.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/alarm_items.xml" value="0.2638888888888889" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/attachment_dialog.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/checklistview_item.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/crouton_handle.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/dialog_backup_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/dialog_location.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/dialog_remove_checklist_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/drawer_category_list_header.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/drawer_list_item.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fab.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fragment_detail.xml" value="0.33425925925925926" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fragment_detail_attachments.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fragment_detail_content.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fragment_list.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fragment_navigation_drawer.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/fragment_sketch.xml" value="0.19739583333333333" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/gridview_item.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/image_and_text_item.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/intro_slide.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/note_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/note_layout_expanded.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/note_layout_widget.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/password_buttons.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/password_request_dialog_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/password_reset_dialog_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/popup_sketch_eraser.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/popup_sketch_stroke.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/rate_app_dialog_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/row.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/settings_font_size_item.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/simple_text_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/sublime_picker.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/toolbar.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/webview.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/widget_layout.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/widget_layout_list.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/widget_layout_small.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/layout/widget_layout_toolbar.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/menu/menu_add_reminder.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/menu/menu_detail.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/menu/menu_gallery.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/menu/menu_list.xml" value="0.3546875" />
+        <entry key="..\:/Jemina/Notes/app/src/main/res/xml/settings_navigation.xml" value="0.3546875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
