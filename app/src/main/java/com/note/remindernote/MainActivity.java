@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         init();
     }

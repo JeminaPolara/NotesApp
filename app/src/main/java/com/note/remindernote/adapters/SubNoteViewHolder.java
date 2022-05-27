@@ -1,20 +1,17 @@
-
-
-package com.note.remindernote.models.holders;
+package com.note.remindernote.adapters;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.neopixl.pixlui.components.textview.TextView;
 import com.note.remindernote.databinding.NoteLayoutBinding;
+import com.note.remindernote.databinding.SubNoteLayoutBinding;
 
-
-public class NoteViewHolder extends ViewHolder {
-
+public class SubNoteViewHolder extends RecyclerView.ViewHolder {
     public View root;
     public View cardLayout;
     public View categoryMarker;
@@ -22,34 +19,27 @@ public class NoteViewHolder extends ViewHolder {
     public TextView title;
     public TextView content;
     public TextView date;
-    public TextView idTVCommonDate;
-    public LinearLayout idLL_CommonDate;
-     public ImageView alarmIcon;
-     public ImageView completedIcon;
+    public ImageView alarmIcon;
+    public ImageView completedIcon;
     public TextView noteCountDays;
     public TextView noteCompletedDate;
     public TextView noteExpireDate;
-    public RecyclerView recNoteList;
 
-    public NoteViewHolder(View view) {
+    public SubNoteViewHolder(View view) {
         super(view);
 
-        NoteLayoutBinding binding = NoteLayoutBinding.bind(view);
+        SubNoteLayoutBinding binding = SubNoteLayoutBinding.bind(view);
         root = binding.root;
         cardLayout = binding.cardLayout;
         categoryMarker = binding.categoryMarker;
         title = binding.noteTitle;
         content = binding.noteContent;
-        idTVCommonDate = binding.idTVCommonDate;
-        idLL_CommonDate = binding.idLLCommonDate;
         date = binding.noteDate;
-         alarmIcon = binding.alarmIcon;
-         completedIcon = binding.completedIcon;
+        alarmIcon = binding.alarmIcon;
+        completedIcon = binding.completedIcon;
         noteCountDays = binding.noteCountDays;
         noteCompletedDate = binding.noteCompletedDate;
         noteExpireDate = binding.noteExpireDate;
-        recNoteList = binding.recNoteList;
 
     }
-
 }

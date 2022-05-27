@@ -3,12 +3,10 @@ package com.note.remindernote;
 
 import static com.note.remindernote.utils.ConstantsBase.PREF_FAB_EXPANSION_BEHAVIOR;
 import static com.note.remindernote.utils.ConstantsBase.PREF_NAVIGATION;
-import static com.note.remindernote.utils.ConstantsBase.PREF_PRETTIFIED_DATES;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.note.remindernote.adapters.NoteAdapter;
 import com.note.remindernote.databinding.FragmentListBinding;
-import com.note.remindernote.helpers.date.DateHelper;
-import com.note.remindernote.listeners.RecyclerViewItemClickSupport;
 import com.note.remindernote.models.Note;
-import com.note.remindernote.models.UndoBarController;
 import com.note.remindernote.utils.date.DateUtils;
 import com.note.remindernote.views.Fab;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -32,16 +27,13 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -252,57 +244,63 @@ public class ListFragment extends Fragment /*implements
     private void initListView() {
         List<Note> notes = realm.where(Note.class).findAll().sort(Utils.NOTEID, Sort.DESCENDING);
 
-
+        HashMap<String, List<Note>> noteHashMap = new HashMap<>();
         List<Note> notesCompleted = new ArrayList<>();
+        List<Note> notesCompletedTemp = new ArrayList<>();
         ArrayList<String> checkCompletedTime = new ArrayList();
 
 
         for (int i = notes.size() - 1; i >= 0; i--) {
+            notesCompletedTemp = new ArrayList<>();
             Note note = notes.get(i);
             notesCompleted.add(note);
+            notesCompletedTemp.add(note);
             if (note.getCompletedTime() != 0 && !DateUtils.isSameDay(note.get_id(), note.getCompletedTime())) {
                 checkCompletedTime.add(String.valueOf(note.getCompletedTime()));
-//                Note note2 = realm.where(Note.class).equalTo(Utils.COMPLETED_TIME, note.getCompletedTime()).findFirst();
-//                notesCompleted.add(note2);
-
             }
             for (String str : checkCompletedTime) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
                     if (collect.size() < 2)
                         if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
-                            /*Note note2 = realm.where(Note.class).equalTo(Utils.COMPLETED_TIME, Long.parseLong(str)).findFirst();
-                            if (note2 != null) {
-                                note2.set_id(note.get_id());
-                                notesCompleted.add(note2);
-                            }*/
-//                            realm.beginTransaction();
-//                            collect.get(0).setAssignDate(note.get_id());
+
                             notesCompleted.add(collect.get(0));
-//                            realm.commitTransaction();
+                            notesCompletedTemp.add(collect.get(0));
+
                         }
+
                 }
-/*
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    notesCompleted.stream().map(number -> number.getTitle()+"__").forEach(System.out::println);
-                    notesCompleted.stream().sorted(new Comparator<Note>() {
-                        @Override
-                        public int compare(Note note, Note t1) {
-                            return note.get_id().compareTo(t1.get_id());
-                        }
-                    }).forEach(note1 -> {
-                        System.out.println("============>>>>"+note1.toString());
-                    });
-                }
-*/
+
             }
+            noteHashMap.put(note.get_id().toString(), notesCompletedTemp);
         }
 
         Collections.reverse(notesCompleted);
 
-        listAdapter = new NoteAdapter(mainActivity, notesCompleted);
+//        for (int i = 0; i < noteHashMap.size(); i++) {
+        for (String key : noteHashMap.keySet()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                System.out.println("Key------> " + DateFormat.format(Utils.dateFormat, new Date(Long.parseLong(key))).toString());
+                List<Note> notes1 = noteHashMap.get(key);
+                for (Note note : notes1) {
+                    System.out.println("Values------>" + note.getTitle());
+                }
+            }
+        }
 
+        HashMap<String, List<Note>> finalNoteHashMap = new LinkedHashMap<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            noteHashMap.entrySet()
+                    .stream()
+                    .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+                    .forEachOrdered(entry ->
+                            finalNoteHashMap.put(entry.getKey(), entry.getValue()));
+        }
+        listAdapter = new NoteAdapter(mainActivity, finalNoteHashMap);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         binding.list.setAdapter(listAdapter);
+/*
         RecyclerViewItemClickSupport.addTo(binding.list)
                 .setOnItemClickListener((recyclerView, position, view) -> {
                     editNote(listAdapter.getItem(position), view);
@@ -311,6 +309,7 @@ public class ListFragment extends Fragment /*implements
 
             return true;
         });
+*/
 
     }
 
