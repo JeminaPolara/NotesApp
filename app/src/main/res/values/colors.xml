@@ -12,6 +12,7 @@
   <color name="statusbar_overlay">#20000000</color>
 
   <!--Floating action button-->
+  <color name="red_complete_fast">#94D32F2F</color>
   <color name="gray_completed">#65FF9800</color>
   <color name="half_black">#808080</color>
   <color name="white">#fafafa</color>

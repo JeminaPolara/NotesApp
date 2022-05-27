@@ -93,11 +93,10 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
     }
 
     private void manageSelectionColor(int position, Note note, SubNoteViewHolder holder) {
-        if (System.currentTimeMillis() >= note.getMaxDate() && note.getCompletedTime() == 0) {
+        if (DateUtils.isSameDay(Long.parseLong(value), note.getMaxDate()) && note.getCompletedTime() == 0) {
             holder.cardLayout
-                    .setBackgroundColor(mActivity.getResources().getColor(R.color.list_bg_selected));
-            holder.noteExpireDate.setVisibility(View.VISIBLE);
-            holder.noteExpireDate.setText("Expired but Remaining Task " + DateHelper.getFormattedDate(note.getMaxDate() != null ? note.getMaxDate() : note.get_id(), Prefs.getBoolean(PREF_PRETTIFIED_DATES, true)));
+                    .setBackgroundColor(mActivity.getResources().getColor(R.color.red_complete_fast));
+
         } else if (note.getCompletedTime() != 0) {
             holder.cardLayout
                     .setBackgroundColor(mActivity.getResources().getColor(R.color.gray_completed));
@@ -105,10 +104,11 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
 //            holder.noteExpireDate.setText("Expired " + DateHelper.getFormattedDate(note.getMaxDate() != null ? note.getMaxDate() : note.get_id(), Prefs.getBoolean(PREF_PRETTIFIED_DATES, true)));
 
 
-        } else if (DateUtils.isSameDay(Long.parseLong(value), note.getMaxDate())) {
+        } else if (System.currentTimeMillis() >= note.getMaxDate() && note.getCompletedTime() == 0) {
             holder.cardLayout
-                    .setBackgroundColor(mActivity.getResources().getColor(R.color.colorAccentPressed));
-
+                    .setBackgroundColor(mActivity.getResources().getColor(R.color.list_bg_selected));
+            holder.noteExpireDate.setVisibility(View.VISIBLE);
+            holder.noteExpireDate.setText("Expired but Remaining Task " + DateHelper.getFormattedDate(note.getMaxDate() != null ? note.getMaxDate() : note.get_id(), Prefs.getBoolean(PREF_PRETTIFIED_DATES, true)));
         } else
             restoreDrawable(note, holder.cardLayout, holder);
     }

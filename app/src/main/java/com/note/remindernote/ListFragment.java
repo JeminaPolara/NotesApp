@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.note.remindernote.adapters.NoteAdapter;
 import com.note.remindernote.databinding.FragmentListBinding;
 import com.note.remindernote.models.Note;
+import com.note.remindernote.models.NoteInfo;
 import com.note.remindernote.utils.date.DateUtils;
 import com.note.remindernote.views.Fab;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -240,14 +242,22 @@ public class ListFragment extends Fragment /*implements
         init();
     }
 
+    String todayPendingTaskDate = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initListView() {
         List<Note> notes = realm.where(Note.class).findAll().sort(Utils.NOTEID, Sort.DESCENDING);
+
+        List<NoteInfo> noteInfoList = notes.parallelStream().map(NoteInfo::from).collect(Collectors.toList());
+
+
+//        notes.stream().
 
         HashMap<String, List<Note>> noteHashMap = new HashMap<>();
         List<Note> notesCompleted = new ArrayList<>();
         List<Note> notesCompletedTemp = new ArrayList<>();
         ArrayList<String> checkCompletedTime = new ArrayList();
+        ArrayList<String> checkTodayPendingTime = new ArrayList();
 
 
         for (int i = notes.size() - 1; i >= 0; i--) {
@@ -258,20 +268,41 @@ public class ListFragment extends Fragment /*implements
             if (note.getCompletedTime() != 0 && !DateUtils.isSameDay(note.get_id(), note.getCompletedTime())) {
                 checkCompletedTime.add(String.valueOf(note.getCompletedTime()));
             }
+            if (DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())) {
+                checkTodayPendingTime.add(String.valueOf(note.getMaxDate()));
+            }
+/*
+            if (note.getCompletedTime() == 0 && System.currentTimeMillis() <= note.getMaxDate()) {
+                todayPendingTaskDate = String.valueOf(note.getMaxDate());
+            }
+*/
+            System.out.println("Max Date====>" + DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())/*DateFormat.format(Utils.dateFormat, new Date(note.getMaxDate())).toString()*/);
             for (String str : checkCompletedTime) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
-                    if (collect.size() < 2)
-                        if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
+                List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
+                if (collect.size() < 2)
+                    if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
+                        notesCompleted.add(collect.get(0));
+                        notesCompletedTemp.add(collect.get(0));
+                    }
+            }
+            for (String str : checkTodayPendingTime) {
+                if (DateUtils.isSameDay(Long.parseLong(str), note.get_id())) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getMaxDate() == Long.parseLong(str)).collect(Collectors.toList());
+                        notesCompletedTemp.addAll(collect);
+                    }
 
-                            notesCompleted.add(collect.get(0));
-                            notesCompletedTemp.add(collect.get(0));
-
-                        }
-
+                }
+            }
+/*
+            if (todayPendingTaskDate!=null&&DateUtils.isSameDay(Long.parseLong(todayPendingTaskDate), note.get_id())) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    List<Note> collect = notesCompleted.stream().filter(note1 -> Long.parseLong(todayPendingTaskDate) <= note1.getMaxDate() && note1.getCompletedTime() == 0).collect(Collectors.toList());
+                    notesCompletedTemp.addAll(collect);
                 }
 
             }
+*/
             noteHashMap.put(note.get_id().toString(), notesCompletedTemp);
         }
 
