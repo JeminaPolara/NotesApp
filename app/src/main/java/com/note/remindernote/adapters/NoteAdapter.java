@@ -15,6 +15,7 @@ import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +101,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             }
             if (checkBeforeCompletedTime != 0 && DateUtils.isSameDay(checkBeforeCompletedTime, note.get_id())) {
                 holder.idLL_CommonDate.setVisibility(View.GONE);
+            } else if (notes.get(position - 1).getCompletedTime() == 0 && note.getCompletedTime() != 0) {
+//                holder.idTVCommonDate.setText(DateFormat.format(Utils.dateFormat, new Date(note.getAssignDate())).toString());
+                holder.idLL_CommonDate.setVisibility(View.GONE);
+            } else if (notes.get(position - 1).getCompletedTime() != 0 && note.getCompletedTime() == 0) {
+//                holder.idTVCommonDate.setText(DateFormat.format(Utils.dateFormat, new Date(note.getAssignDate())).toString());
+                holder.idLL_CommonDate.setVisibility(View.GONE);
             } else if (note.getCompletedTime() != 0 && DateUtils.isSameDay(notes.get(position - 1).getCompletedTime(), note.get_id())) {
                 holder.idTVCommonDate.setText(DateFormat.format(Utils.dateFormat, new Date(note.getCompletedTime())).toString());
                 holder.idLL_CommonDate.setVisibility(View.GONE);
@@ -125,7 +132,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
                 holder.completedIcon.setVisibility(View.VISIBLE);
             }*/
 
-
+/*
+            if (notes.get(position - 1).getCompletedTime() == 0) {
+                if (!DateUtils.isSameDay(notes.get(position - 1).get_id(), note.getCompletedTime())) {
+                    holder.idTVCommonDate.setText(DateFormat.format(Utils.dateFormat, new Date(note.get_id())).toString());
+                    holder.idLL_CommonDate.setVisibility(View.VISIBLE);
+                }
+            }
+*/
         } else {
             if (note.getCompletedTime() != 0) {
                 checkBeforeCompletedTime = note.getCompletedTime();
@@ -171,7 +185,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         }
         return buf.toString();
     }
-
 
 
     public SparseBooleanArray getSelectedItems() {

@@ -684,10 +684,8 @@ public class DetailFragment extends Fragment implements OnReminderPickedListener
             Task task = realm.where(Task.class)
                     .equalTo(Utils.NOTEID, noteTmp.get_id())
                     .findFirst();
-            if (task != null) {
-                if (isChangeTask() || task.getFlag() != mainflag) {
-                    saveTask(task, mainflag, contentText);
-                }
+            if (task != null && (isChangeTask() || task.getFlag() != mainflag)) {
+                saveTask(task, mainflag, contentText);
             } else
                 saveTask(task, mainflag, contentText);
         } else {

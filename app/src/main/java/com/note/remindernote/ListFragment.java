@@ -42,6 +42,7 @@ import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import io.realm.Realm;
@@ -259,19 +260,29 @@ public class ListFragment extends Fragment /*implements
         for (int i = notes.size() - 1; i >= 0; i--) {
             Note note = notes.get(i);
             notesCompleted.add(note);
-            Log.e("aaaaaaa", "--->" + note.get_id());
             if (note.getCompletedTime() != 0 && !DateUtils.isSameDay(note.get_id(), note.getCompletedTime())) {
                 checkCompletedTime.add(String.valueOf(note.getCompletedTime()));
-                Log.e("aaaaaaa", "1111--->" + note.getCompletedTime());
 //                Note note2 = realm.where(Note.class).equalTo(Utils.COMPLETED_TIME, note.getCompletedTime()).findFirst();
 //                notesCompleted.add(note2);
 
             }
             for (String str : checkCompletedTime) {
-                if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
-                    Note note2 = realm.where(Note.class).equalTo(Utils.COMPLETED_TIME, Long.parseLong(str)).findFirst();
-                    notesCompleted.add(note2);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
+                    if (collect.size() < 2)
+                        if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
+                            /*Note note2 = realm.where(Note.class).equalTo(Utils.COMPLETED_TIME, Long.parseLong(str)).findFirst();
+                            if (note2 != null) {
+                                note2.set_id(note.get_id());
+                                notesCompleted.add(note2);
+                            }*/
+//                            realm.beginTransaction();
+//                            collect.get(0).setAssignDate(note.get_id());
+                            notesCompleted.add(collect.get(0));
+//                            realm.commitTransaction();
+                        }
                 }
+/*
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     notesCompleted.stream().map(number -> number.getTitle()+"__").forEach(System.out::println);
                     notesCompleted.stream().sorted(new Comparator<Note>() {
@@ -279,8 +290,11 @@ public class ListFragment extends Fragment /*implements
                         public int compare(Note note, Note t1) {
                             return note.get_id().compareTo(t1.get_id());
                         }
-                    }).forEach(System.out::println);
+                    }).forEach(note1 -> {
+                        System.out.println("============>>>>"+note1.toString());
+                    });
                 }
+*/
             }
         }
 
@@ -325,7 +339,6 @@ public class ListFragment extends Fragment /*implements
 
         // Fragments replacing
         mainActivity.switchToDetail(note);
-
 
 
     }
