@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -259,6 +260,7 @@ public class ListFragment extends Fragment /*implements
 //        ArrayList<String> checkTodayPendingTime = new ArrayList();
         ArrayList<String> todayPendingTaskDate = new ArrayList();
 
+//1653265368811    1653264748631
 
         for (int i = 0; i < notes.size(); i++) {
             notesCompletedTemp = new ArrayList<>();
@@ -271,24 +273,54 @@ public class ListFragment extends Fragment /*implements
            /* if (DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())) {
                 checkTodayPendingTime.add(String.valueOf(note.getMaxDate()));
             }*/
-            if (note.getCompletedTime() == 0 && System.currentTimeMillis() >= note.getMaxDate()) {
+
+            Set<Map.Entry<String, List<Note>>> entries = noteHashMap.entrySet();
+            for (int k = 0; k < entries.size(); k++) {
+                String value = (new ArrayList<String>(noteHashMap.keySet())).get(k);
+
+                if (DateUtils.isSameDay(Long.parseLong(value), note.get_id())) {
+                    System.out.println("Same Key====" + value);
+                }
+                /*List<Note> values = new ArrayList<>();
+                for (Map.Entry<String, List<Note>> entry : noteHashMap.entrySet()) {
+                    if (entry.getKey().equals(value)) {
+                        values = entry.getValue();
+                    }
+                }*/
+            }
+            /**
+             * For today date's all pending task with expire max and today
+             * */
+            if (note.getCompletedTime() == 0 /*&& System.currentTimeMillis() <= note.getMaxDate()*/) {
+                if (!DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
+                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).collect(Collectors.toList());
+                    if (collect.size() < 2) {
+                        System.out.println("Tempppppppppppp-> " + note.getTitle());
+
+                        todayPendingTaskDate.add(note.get_id().toString());
+                    }
+                }
+            }
+            /**
+             * For task date is expire but still not done task.
+             * */
+           /* if (note.getCompletedTime() == 0 && System.currentTimeMillis() >= note.getMaxDate()) {
                 if (!DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
                     List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.getMaxDate().equals(note.getMaxDate())).collect(Collectors.toList());
                     if (collect.size() < 2) {
-                        System.out.println("Values3333------>" + note.getTitle());
+                        System.out.println("Tempppppppppppp111-> "+note.getTitle());
                         todayPendingTaskDate.add(note.get_id().toString());
-                    }/* else {
+                    }*//* else {
                         todayPendingTaskDate.removeAll(collect);
 //                        todayPendingTaskDate.add(note.get_id().toString());
-                    }*/
+                    }*//*
                 }
 //                List<Note> collect = notesPendingTime.stream().filter(note1 -> note1.getMaxDate().equals(note.getMaxDate())).collect(Collectors.toList());
 //                if (collect.size() >= 1) {
 //                    notesPendingTime.removeAll(collect);
 //                }
 //                notesPendingTime.add(note);
-            }
-            System.out.println("Max Date====>" + DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())/*DateFormat.format(Utils.dateFormat, new Date(note.getMaxDate())).toString()*/);
+            }*/
             for (String str : checkCompletedTime) {
                 List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
                 if (collect.size() < 2)
@@ -329,7 +361,6 @@ public class ListFragment extends Fragment /*implements
 */
             for (String str : todayPendingTaskDate) {
                 if (DateUtils.isSameDay(note.get_id(), System.currentTimeMillis())) {
-                    System.out.println("Values------>" + note.getTitle());
                     List<Note> collect = notesCompleted.stream().filter(note1 -> note1.get_id() == Long.parseLong(str)).collect(Collectors.toList());
                     notesCompletedTemp.addAll(collect);
                 }
@@ -345,7 +376,7 @@ public class ListFragment extends Fragment /*implements
             }
 */
 
-
+            System.out.println("Testing ==>" + DateUtils.isSameDay(1653265368811L, 1653264748631L));
             noteHashMap.put(note.get_id().toString(), notesCompletedTemp);
         }
 
