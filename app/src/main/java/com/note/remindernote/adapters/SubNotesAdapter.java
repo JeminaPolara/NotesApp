@@ -123,12 +123,8 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         holder.date.setText(dateText);
         holder.completedIcon.setVisibility(View.VISIBLE);
 
-        if (position != 0) {
-            if (note.getCompletedTime() == 0) {
-                holder.completedIcon.setVisibility(View.GONE);
-            }
-
-
+        if (position != 0 && note.getCompletedTime() == 0) {
+            holder.completedIcon.setVisibility(View.GONE);
         } else {
             if (note.getCompletedTime() != 0) {
                 checkBeforeCompletedTime = note.getCompletedTime();
@@ -139,7 +135,7 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
 
         String completedDate = note.getCompletedTime() != 0 ? DateFormat.format(Utils.dateFormat, new Date(note.getCompletedTime())).toString() : "";
 
-        if (DateUtils.isSameDay(Long.parseLong(value), note.get_id())) {
+        if (!DateUtils.isSameDay(Long.parseLong(value), note.get_id())) {
             if (note.getCompletedTime() != 0)
                 completedDate = "Created : " + DateFormat.format(Utils.dateFormat, new Date(note.get_id())).toString();
             else {

@@ -272,18 +272,24 @@ public class ListFragment extends Fragment /*implements
 
             for (String str : checkCompletedTime) {
                 List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
-                if (collect.size() == 1 && DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
-                    notesCompleted.add(collect.get(0));
-                    notesCompletedTemp.add(collect.get(0));
-                }
+                if (collect.size() < 2)
+                    if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
+                        notesCompleted.add(collect.get(0));
+                        notesCompletedTemp.add(collect.get(0));
+                    }
             }
             /**
              * For today date's all pending task with expire max and today
              * */
-            if (note.getCompletedTime() == 0 &&
-                    !DateUtils.isSameDay(System.currentTimeMillis(), note.get_id()) &&
-                    notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).count() == 1) {
-                todayPendingTaskDate.add(note.get_id().toString());
+            if (note.getCompletedTime() == 0) {
+                if (!DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
+                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).collect(Collectors.toList());
+                    if (collect.size() < 2) {
+                        System.out.println("Tempppppppppppp-> " + note.getTitle());
+
+                        todayPendingTaskDate.add(note.get_id().toString());
+                    }
+                }
             }
             /**
              * For today date's all pending task with expire max and today
@@ -315,7 +321,6 @@ public class ListFragment extends Fragment /*implements
         }
 
         Collections.reverse(notesCompleted);
-
 
         HashMap<String, List<Note>> finalNoteHashMap = new LinkedHashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
