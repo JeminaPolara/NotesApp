@@ -34,7 +34,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -259,6 +258,8 @@ public class ListFragment extends Fragment /*implements
         ArrayList<String> todayPendingTaskDate = new ArrayList();
 
 
+
+
         for (int i = 0; i < notes.size(); i++) {
             notesCompletedTemp = new ArrayList<>();
             Note note = notes.get(i);
@@ -267,7 +268,31 @@ public class ListFragment extends Fragment /*implements
             if (note.getCompletedTime() != 0 && !DateUtils.isSameDay(note.get_id(), note.getCompletedTime())) {
                 checkCompletedTime.add(String.valueOf(note.getCompletedTime()));
             }
+            /**
+             * For task date is expire but still not done task.
+             * */
 
+            for (String str : checkCompletedTime) {
+                List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
+                if (collect.size() < 2)
+                    if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
+                        notesCompleted.add(collect.get(0));
+                        notesCompletedTemp.add(collect.get(0));
+                    }
+            }
+            /**
+             * For today date's all pending task with expire max and today
+             * */
+            if (note.getCompletedTime() == 0) {
+                if (!DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
+                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).collect(Collectors.toList());
+                    if (collect.size() < 2) {
+                        System.out.println("Tempppppppppppp-> " + note.getTitle());
+
+                        todayPendingTaskDate.add(note.get_id().toString());
+                    }
+                }
+            }
             /**
              * For today date's all pending task with expire max and today
              * */
@@ -279,33 +304,15 @@ public class ListFragment extends Fragment /*implements
                     for (Map.Entry<String, List<Note>> entry : noteHashMap.entrySet()) {
                         if (entry.getKey().equals(value)) {
                             isAddDone = true;
+                            break;
                         }
                     }
                 }
 
             }
             if (!isAddDone) {
-                /**
-                 * For today date's all pending task with expire max and today
-                 * */
-                if (note.getCompletedTime() == 0 &&
-                        !DateUtils.isSameDay(System.currentTimeMillis(), note.get_id()) &&
-                        notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).count() == 1) {
-                    todayPendingTaskDate.add(note.get_id().toString());
-                }
-                /**
-                 * For task date is expire but still not done task.
-                 * */
 
-                for (String str : checkCompletedTime) {
-                    Optional<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList()).stream().findFirst();
-                    if (collect.isPresent()
-                            && notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).count() == 1
-                            && DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
-                        notesCompleted.add(collect.get());
-                        notesCompletedTemp.add(collect.get());
-                    }
-                }
+
 
                 for (String str : todayPendingTaskDate) {
                     if (DateUtils.isSameDay(note.get_id(), System.currentTimeMillis())) {
