@@ -242,13 +242,12 @@ public class ListFragment extends Fragment /*implements
         init();
     }
 
-    String todayPendingTaskDate = null;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initListView() {
-        List<Note> notes = realm.where(Note.class).findAll().sort(Utils.NOTEID, Sort.DESCENDING);
+        List<Note> notes = realm.where(Note.class).findAll().sort(Utils.NOTEID, Sort.ASCENDING);
 
-        List<NoteInfo> noteInfoList = notes.parallelStream().map(NoteInfo::from).collect(Collectors.toList());
+//        List<NoteInfo> noteInfoList = notes.parallelStream().map(NoteInfo::from).collect(Collectors.toList());
 
 
 //        notes.stream().
@@ -257,10 +256,11 @@ public class ListFragment extends Fragment /*implements
         List<Note> notesCompleted = new ArrayList<>();
         List<Note> notesCompletedTemp = new ArrayList<>();
         ArrayList<String> checkCompletedTime = new ArrayList();
-        ArrayList<String> checkTodayPendingTime = new ArrayList();
+//        ArrayList<String> checkTodayPendingTime = new ArrayList();
+        ArrayList<String> todayPendingTaskDate = new ArrayList();
 
 
-        for (int i = notes.size() - 1; i >= 0; i--) {
+        for (int i = 0; i < notes.size(); i++) {
             notesCompletedTemp = new ArrayList<>();
             Note note = notes.get(i);
             notesCompleted.add(note);
@@ -268,14 +268,26 @@ public class ListFragment extends Fragment /*implements
             if (note.getCompletedTime() != 0 && !DateUtils.isSameDay(note.get_id(), note.getCompletedTime())) {
                 checkCompletedTime.add(String.valueOf(note.getCompletedTime()));
             }
-            if (DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())) {
+           /* if (DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())) {
                 checkTodayPendingTime.add(String.valueOf(note.getMaxDate()));
+            }*/
+            if (note.getCompletedTime() == 0 && System.currentTimeMillis() >= note.getMaxDate()) {
+                if (!DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
+                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.getMaxDate().equals(note.getMaxDate())).collect(Collectors.toList());
+                    if (collect.size() < 2) {
+                        System.out.println("Values3333------>" + note.getTitle());
+                        todayPendingTaskDate.add(note.get_id().toString());
+                    }/* else {
+                        todayPendingTaskDate.removeAll(collect);
+//                        todayPendingTaskDate.add(note.get_id().toString());
+                    }*/
+                }
+//                List<Note> collect = notesPendingTime.stream().filter(note1 -> note1.getMaxDate().equals(note.getMaxDate())).collect(Collectors.toList());
+//                if (collect.size() >= 1) {
+//                    notesPendingTime.removeAll(collect);
+//                }
+//                notesPendingTime.add(note);
             }
-/*
-            if (note.getCompletedTime() == 0 && System.currentTimeMillis() <= note.getMaxDate()) {
-                todayPendingTaskDate = String.valueOf(note.getMaxDate());
-            }
-*/
             System.out.println("Max Date====>" + DateUtils.isSameDay(System.currentTimeMillis(), note.getMaxDate())/*DateFormat.format(Utils.dateFormat, new Date(note.getMaxDate())).toString()*/);
             for (String str : checkCompletedTime) {
                 List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
@@ -285,14 +297,43 @@ public class ListFragment extends Fragment /*implements
                         notesCompletedTemp.add(collect.get(0));
                     }
             }
+/*
             for (String str : checkTodayPendingTime) {
                 if (DateUtils.isSameDay(Long.parseLong(str), note.get_id())) {
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getMaxDate() == Long.parseLong(str)).collect(Collectors.toList());
-                        notesCompletedTemp.addAll(collect);
+                    List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getMaxDate() == Long.parseLong(str)).collect(Collectors.toList());
+                    for (Note n : collect) {
+                        System.out.println("Temppppp-> " + n.getTitle());
                     }
+                    */
+/*System.out.println("Temppppp2222-> " + collect.size());
+                    if (collect.size() < 2) {
+                        System.out.println("Temppppp111-> " + collect.get(0).getTitle());
+                        boolean addItem = true;
+                        for (Note noteCheck : notesCompletedTemp) {
+
+                            if (noteCheck.get_id().equals(collect.get(0).get_id())) {
+                                addItem = false;
+                                break;
+                            }
+
+                        }
+                        if (addItem) {
+                            notesCompletedTemp.add(collect.get(0));
+                        }
+
+                    }*//*
+
 
                 }
+            }
+*/
+            for (String str : todayPendingTaskDate) {
+                if (DateUtils.isSameDay(note.get_id(), System.currentTimeMillis())) {
+                    System.out.println("Values------>" + note.getTitle());
+                    List<Note> collect = notesCompleted.stream().filter(note1 -> note1.get_id() == Long.parseLong(str)).collect(Collectors.toList());
+                    notesCompletedTemp.addAll(collect);
+                }
+
             }
 /*
             if (todayPendingTaskDate!=null&&DateUtils.isSameDay(Long.parseLong(todayPendingTaskDate), note.get_id())) {
@@ -303,13 +344,15 @@ public class ListFragment extends Fragment /*implements
 
             }
 */
+
+
             noteHashMap.put(note.get_id().toString(), notesCompletedTemp);
         }
 
         Collections.reverse(notesCompleted);
 
 //        for (int i = 0; i < noteHashMap.size(); i++) {
-        for (String key : noteHashMap.keySet()) {
+        /*for (String key : noteHashMap.keySet()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 System.out.println("Key------> " + DateFormat.format(Utils.dateFormat, new Date(Long.parseLong(key))).toString());
                 List<Note> notes1 = noteHashMap.get(key);
@@ -317,7 +360,7 @@ public class ListFragment extends Fragment /*implements
                     System.out.println("Values------>" + note.getTitle());
                 }
             }
-        }
+        }*/
 
         HashMap<String, List<Note>> finalNoteHashMap = new LinkedHashMap<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

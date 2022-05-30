@@ -105,8 +105,12 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
 
 
         } else if (System.currentTimeMillis() >= note.getMaxDate() && note.getCompletedTime() == 0) {
-            holder.cardLayout
-                    .setBackgroundColor(mActivity.getResources().getColor(R.color.list_bg_selected));
+            if (DateUtils.isSameDay(Long.parseLong(value), note.get_id())) {
+                holder.cardLayout
+                        .setBackgroundColor(mActivity.getResources().getColor(R.color.list_bg_selected));
+            } else
+                holder.cardLayout
+                        .setBackgroundColor(mActivity.getResources().getColor(R.color.list_dark_bg_selected));
             holder.noteExpireDate.setVisibility(View.VISIBLE);
             holder.noteExpireDate.setText("Expired but Remaining Task " + DateHelper.getFormattedDate(note.getMaxDate() != null ? note.getMaxDate() : note.get_id(), Prefs.getBoolean(PREF_PRETTIFIED_DATES, true)));
         } else
@@ -117,8 +121,6 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         String dateText = MyApp.getAppContext().getString(R.string.last_update) + " " + DateHelper.getFormattedDate(note
                 .getLastModification() != null ? note.getLastModification() : note.get_id(), Prefs.getBoolean(PREF_PRETTIFIED_DATES, true));
         holder.date.setText(dateText);
-        String dateString = DateFormat.format(Utils.dateFormat, new Date(note.get_id())).toString();
-//        holder.idTVCommonDate.setText(dateString);
         holder.completedIcon.setVisibility(View.VISIBLE);
 
         if (position != 0) {
@@ -130,18 +132,14 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         } else {
             if (note.getCompletedTime() != 0) {
                 checkBeforeCompletedTime = note.getCompletedTime();
-                String dateString1 = DateFormat.format(Utils.dateFormat, new Date(note.getCompletedTime())).toString();
-//                holder.idTVCommonDate.setText(dateString1);
             } else {
                 holder.completedIcon.setVisibility(View.GONE);
             }
         }
 
-        String completedDate = note.getCompletedTime() != 0 ? /*"Completed : " +*/ DateFormat.format(Utils.dateFormat, new Date(note.getCompletedTime())).toString() : "";
+        String completedDate = note.getCompletedTime() != 0 ? DateFormat.format(Utils.dateFormat, new Date(note.getCompletedTime())).toString() : "";
 
-//        if (completedDate.equals(holder.idTVCommonDate.getText().toString())) {
         if (DateUtils.isSameDay(Long.parseLong(value), note.get_id())) {
-//            if (!DateUtils.isSameDay(note.get_id(), note.getCompletedTime()))
             if (note.getCompletedTime() != 0)
                 completedDate = "Created : " + DateFormat.format(Utils.dateFormat, new Date(note.get_id())).toString();
             else {
@@ -155,9 +153,6 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
 
         String days = String.valueOf(note.getCompletedTime() != 0 ? count == 1 ? count + " day" : count + " days" : "");
         holder.noteCountDays.setText(days);
-//        holder.idTVCommonDate.setText(note.getCompletedTime() != 0 ? DateFormat.format(Utils.dateFormat, new Date(note.getCompletedTime())) : holder.idTVCommonDate.getText());
-//        holder.idTVCommonDate.setText(completedDate);
-//        holder.noteExpireDate.setText();
     }
 
     @Override
