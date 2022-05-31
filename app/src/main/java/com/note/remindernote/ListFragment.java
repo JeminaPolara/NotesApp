@@ -245,7 +245,6 @@ public class ListFragment extends Fragment /*implements
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println("Click Position====>" + "OnResume ");
         init();
     }
 
@@ -264,8 +263,32 @@ public class ListFragment extends Fragment /*implements
         List<Note> notesCompletedTemp = new ArrayList<>();
         ArrayList<String> checkCompletedTime = new ArrayList();
         ArrayList<String> todayPendingTaskDate = new ArrayList();
-
-
+        /**
+         * Add Current date remaining or expire task
+         * */
+        long maxlong = 0;
+        for (int k = 0; k < notes.size(); k++) {
+            Note note = notes.get(k);
+            if (note.get_id() > maxlong) {
+                maxlong = note.get_id();
+            }
+        }
+        if (!DateUtils.isSameDay(System.currentTimeMillis(), maxlong)) {
+            checkCompletedTime.add(String.valueOf(System.currentTimeMillis()));
+            for (int l = 0; l < notes.size(); l++) {
+                Note note = notes.get(l);
+                if (note.getCompletedTime() == 0 && !DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
+                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).collect(Collectors.toList());
+                    if (collect.size() < 2) {
+                        notesCompletedTemp.add(note);
+                    }
+                }
+            }
+            noteHashMap.put(String.valueOf(System.currentTimeMillis()), notesCompletedTemp);
+        }
+        /**
+         * Add Next date task list done or created.
+         * */
         for (int i = 0; i < notes.size(); i++) {
             notesCompletedTemp = new ArrayList<>();
             Note note = notes.get(i);
