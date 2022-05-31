@@ -19,7 +19,6 @@ import com.note.remindernote.Utils;
 import com.note.remindernote.helpers.date.DateHelper;
 import com.note.remindernote.models.Note;
 import com.note.remindernote.models.Task;
-import com.note.remindernote.models.holders.NoteViewHolder;
 import com.note.remindernote.utils.date.DateUtils;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -44,7 +43,6 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         this.mActivity = mActivity;
         this.notes = notes;
         this.value = value;
-        System.out.println("valueee======> " + this.value);
         realm = Realm.getDefaultInstance();
     }
 
@@ -72,7 +70,6 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull SubNoteViewHolder holder, int position) {
         Note note = notes.get(position);
-        System.out.println("Notes Valuessss------------> " + note.getTitle());
 
         RealmResults<Task> taskList = realm.where(Task.class).equalTo("creation", note.get_id()).sort("flag", Sort.ASCENDING, "taskid", Sort.DESCENDING).findAll();
 
@@ -80,7 +77,7 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         for (Task task : taskList) {
             if (note.isChecklist())
                 contentText.append("\u2022");
-            contentText.append(" " + task.getTaskDetail());
+            contentText.append(" ").append(task.getTaskDetail());
             contentText.append("\n");
         }
         holder.title.setText(note.getTitle());
@@ -100,8 +97,6 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         } else if (note.getCompletedTime() != 0) {
             holder.cardLayout
                     .setBackgroundColor(mActivity.getResources().getColor(R.color.gray_completed));
-//            holder.noteExpireDate.setVisibility(View.VISIBLE);
-//            holder.noteExpireDate.setText("Expired " + DateHelper.getFormattedDate(note.getMaxDate() != null ? note.getMaxDate() : note.get_id(), Prefs.getBoolean(PREF_PRETTIFIED_DATES, true)));
 
 
         } else if (System.currentTimeMillis() >= note.getMaxDate() && note.getCompletedTime() == 0) {
@@ -160,10 +155,6 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         return notes.get(index);
     }
 
-    public void restoreDrawable(Note note, View v) {
-        restoreDrawable(note, v, null);
-    }
-
 
     public void restoreDrawable(Note note, View v, SubNoteViewHolder holder) {
         final int paddingBottom = v.getPaddingBottom();
@@ -171,19 +162,13 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
         final int paddingRight = v.getPaddingRight();
         final int paddingTop = v.getPaddingTop();
         v.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
-        colorNote(note, v, holder);
+        colorNote(v);
     }
 
-    private void colorNote(Note note, View v, SubNoteViewHolder holder) {
-
+    private void colorNote(View v) {
         String colorsPref = Prefs.getString("settings_colors_app", PREF_COLORS_APP_DEFAULT);
-
-        // Checking preference
         if (!colorsPref.equals("disabled")) {
-
-            // Resetting transparent color to the view
             v.setBackgroundColor(Color.parseColor("#00000000"));
-
         }
     }
 }

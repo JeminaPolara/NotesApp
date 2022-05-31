@@ -274,12 +274,9 @@ public class ListFragment extends Fragment /*implements
             }
         }
         if (!DateUtils.isSameDay(System.currentTimeMillis(), maxlong)) {
-            checkCompletedTime.add(String.valueOf(System.currentTimeMillis()));
-            for (int l = 0; l < notes.size(); l++) {
-                Note note = notes.get(l);
+            for (Note note : notes) {
                 if (note.getCompletedTime() == 0 && !DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
-                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).collect(Collectors.toList());
-                    if (collect.size() < 2) {
+                    if (notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).count() < 2) {
                         notesCompletedTemp.add(note);
                     }
                 }
@@ -289,9 +286,8 @@ public class ListFragment extends Fragment /*implements
         /**
          * Add Next date task list done or created.
          * */
-        for (int i = 0; i < notes.size(); i++) {
+        for (Note note : notes) {
             notesCompletedTemp = new ArrayList<>();
-            Note note = notes.get(i);
             notesCompleted.add(note);
             notesCompletedTemp.add(note);
             if (note.getCompletedTime() != 0 && !DateUtils.isSameDay(note.get_id(), note.getCompletedTime())) {
@@ -302,23 +298,17 @@ public class ListFragment extends Fragment /*implements
              * */
             for (String str : checkCompletedTime) {
                 List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
-                if (collect.size() < 2)
-                    if (DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
-                        notesCompleted.add(collect.get(0));
-                        notesCompletedTemp.add(collect.get(0));
-                    }
+                if (collect.size() == 1 && DateUtils.isSameDay(note.get_id(), Long.parseLong(str))) {
+                    notesCompleted.add(collect.get(0));
+                    notesCompletedTemp.add(collect.get(0));
+                }
             }
             /**
              * For today date's all pending task with expire max and today
              * */
-            if (note.getCompletedTime() == 0) {
-                if (!DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
-                    List<Note> collect = notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).collect(Collectors.toList());
-                    if (collect.size() < 2) {
-                        System.out.println("Tempppppppppppp-> " + note.getTitle());
-
-                        todayPendingTaskDate.add(note.get_id().toString());
-                    }
+            if (note.getCompletedTime() == 0 && !DateUtils.isSameDay(System.currentTimeMillis(), note.get_id())) {
+                if (notesCompletedTemp.stream().filter(note1 -> note1.get_id().equals(note.get_id())).count() < 2) {
+                    todayPendingTaskDate.add(note.get_id().toString());
                 }
             }
             /**
@@ -338,6 +328,9 @@ public class ListFragment extends Fragment /*implements
                 }
 
             }
+            /**
+             * If not exist in hashmap then add todayPendingTaskDate
+             * */
             if (!isAddDone) {
                 for (String str : todayPendingTaskDate) {
                     if (DateUtils.isSameDay(note.get_id(), System.currentTimeMillis())) {
@@ -350,16 +343,14 @@ public class ListFragment extends Fragment /*implements
             noteHashMap.put(note.get_id().toString(), notesCompletedTemp);
         }
 
-        Collections.reverse(notesCompleted);
+//        Collections.reverse(notesCompleted);
 
         HashMap<String, List<Note>> finalNoteHashMap = new LinkedHashMap<>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            noteHashMap.entrySet()
-                    .stream()
-                    .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
-                    .forEachOrdered(entry ->
-                            finalNoteHashMap.put(entry.getKey(), entry.getValue()));
-        }
+        noteHashMap.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+                .forEachOrdered(entry ->
+                        finalNoteHashMap.put(entry.getKey(), entry.getValue()));
         listAdapter = new NoteAdapter(mainActivity, finalNoteHashMap);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -381,7 +372,6 @@ public class ListFragment extends Fragment /*implements
                             @Override
                             public void onItemClick(View view, int position) {
                                 finalNoteHashMap1.clear();
-                                System.out.println("Click Position====>" + position);
                                 String value = (new ArrayList<String>(finalNoteHashMap.keySet())).get(position);
                                 List<Note> values = new ArrayList<>();
                                 for (Map.Entry<String, List<Note>> entry : finalNoteHashMap.entrySet()) {
@@ -392,7 +382,6 @@ public class ListFragment extends Fragment /*implements
                                 }
                                 listAdapter = new NoteAdapter(mainActivity, finalNoteHashMap1);
                                 binding.list.setAdapter(listAdapter);
-                                listAdapter.notifyDataSetChanged();
                                 dialogNetWorkError.dismiss();
                             }
                         }));
@@ -403,7 +392,6 @@ public class ListFragment extends Fragment /*implements
             public void onClick(View view) {
                 listAdapter = new NoteAdapter(mainActivity, finalNoteHashMap);
                 binding.list.setAdapter(listAdapter);
-                listAdapter.notifyDataSetChanged();
             }
         });
     }
