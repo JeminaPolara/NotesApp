@@ -98,7 +98,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
                 .positiveText(R.string.ok)
                 .onPositive((dialog, which) -> {
                     mActivity.deleteNote(note);
-                    mActivity.onResume();
                 }).build().show();
     }
 

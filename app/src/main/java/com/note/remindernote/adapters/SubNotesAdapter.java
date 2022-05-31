@@ -168,7 +168,7 @@ public class SubNotesAdapter extends RecyclerView.Adapter<SubNoteViewHolder> {
     private void colorNote(View v) {
         String colorsPref = Prefs.getString("settings_colors_app", PREF_COLORS_APP_DEFAULT);
         if (!colorsPref.equals("disabled")) {
-            v.setBackgroundColor(Color.parseColor("#00000000"));
+            v.setBackgroundColor(Color.parseColor("#F5F5F5"));
         }
     }
 }

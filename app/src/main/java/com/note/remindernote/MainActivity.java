@@ -74,11 +74,11 @@ public class MainActivity extends BaseActivity implements
 
         getFragmentManagerInstance();
 
-        if (getFragmentManagerInstance().findFragmentByTag(FRAGMENT_LIST_TAG) == null) {
+//        if (getFragmentManagerInstance().findFragmentByTag(FRAGMENT_LIST_TAG) == null) {
             FragmentTransaction fragmentTransaction = getFragmentManagerInstance().beginTransaction();
-            fragmentTransaction.add(R.id.fragment_container, new ListFragment(), FRAGMENT_LIST_TAG)
+            fragmentTransaction.replace(R.id.fragment_container, new ListFragment(), FRAGMENT_LIST_TAG)
                     .commit();
-        }
+//        }
 
         handleIntents();
     }
@@ -210,6 +210,7 @@ public class MainActivity extends BaseActivity implements
         }
         note.deleteFromRealm();
         realm.commitTransaction();
+        onResume();
     }
 
 
