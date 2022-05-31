@@ -15,6 +15,11 @@
 
 <!--    <item name="sublimePickerStyle">@style/ONSublimePickerStyle</item>-->
   </style>
+  <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+    <item name="android:windowBackground">@color/trans_black</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
 
   <style name="ONSublimePickerStyle" ><!--parent="SublimePickerStyleLight">-->
     <item name="colorAccent">@color/colorPrimary</item>

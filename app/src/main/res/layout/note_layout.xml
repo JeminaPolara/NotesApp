@@ -13,10 +13,8 @@
         android:orientation="vertical"
         android:paddingStart="6dp"
         android:paddingLeft="6dp"
-        android:paddingTop="7dp"
         android:paddingEnd="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="7dp">
+        android:paddingRight="16dp">
 
         <com.neopixl.pixlui.components.textview.TextView
             android:id="@+id/idTVCommonDate"
@@ -32,10 +30,8 @@
         android:orientation="vertical"
         android:paddingStart="6dp"
         android:paddingLeft="6dp"
-        android:paddingTop="7dp"
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="7dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/idLLCommonDate"
         android:id="@+id/recNoteList"/>

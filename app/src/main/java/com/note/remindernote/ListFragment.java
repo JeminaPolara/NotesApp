@@ -4,27 +4,34 @@ package com.note.remindernote;
 import static com.note.remindernote.utils.ConstantsBase.PREF_FAB_EXPANSION_BEHAVIOR;
 import static com.note.remindernote.utils.ConstantsBase.PREF_NAVIGATION;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.note.remindernote.adapters.DateNoteAdapter;
 import com.note.remindernote.adapters.NoteAdapter;
 import com.note.remindernote.databinding.FragmentListBinding;
 import com.note.remindernote.models.Note;
 import com.note.remindernote.models.NoteInfo;
+import com.note.remindernote.utils.RecyclerItemClickListener;
 import com.note.remindernote.utils.date.DateUtils;
 import com.note.remindernote.views.Fab;
 import com.pixplicity.easyprefs.library.Prefs;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -238,6 +245,7 @@ public class ListFragment extends Fragment /*implements
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("Click Position====>" + "OnResume ");
         init();
     }
 
@@ -246,7 +254,7 @@ public class ListFragment extends Fragment /*implements
     private void initListView() {
         List<Note> notes = realm.where(Note.class).findAll().sort(Utils.NOTEID, Sort.ASCENDING);
 
-//        List<NoteInfo> noteInfoList = notes.parallelStream().map(NoteInfo::from).collect(Collectors.toList());
+//        List<NoteInfo> noteInfoList = notes.parallelStream().map(note -> NoteInfo.from(realm, note)).collect(Collectors.toList());
 
 
 //        notes.stream().
@@ -269,7 +277,6 @@ public class ListFragment extends Fragment /*implements
             /**
              * For task date is expire but still not done task.
              * */
-
             for (String str : checkCompletedTime) {
                 List<Note> collect = notesCompleted.stream().filter(note1 -> note1.getCompletedTime() == Long.parseLong(str)).collect(Collectors.toList());
                 if (collect.size() < 2)
@@ -334,7 +341,48 @@ public class ListFragment extends Fragment /*implements
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         binding.list.setAdapter(listAdapter);
-
+        HashMap<String, List<Note>> finalNoteHashMap1 = new LinkedHashMap<>();
+        binding.idIvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialogNetWorkError = new Dialog(mainActivity, R.style.CustomDialogTheme);
+                dialogNetWorkError.setContentView(R.layout.single_button_dialog);
+                RecyclerView recDateSelect = dialogNetWorkError.findViewById(R.id.recDateSelect);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                recDateSelect.setLayoutManager(linearLayoutManager);
+                DateNoteAdapter dateNoteAdapter = new DateNoteAdapter(mainActivity, finalNoteHashMap);
+                recDateSelect.setAdapter(dateNoteAdapter);
+                dialogNetWorkError.show();
+                recDateSelect.addOnItemTouchListener(
+                        new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                finalNoteHashMap1.clear();
+                                System.out.println("Click Position====>" + position);
+                                String value = (new ArrayList<String>(finalNoteHashMap.keySet())).get(position);
+                                List<Note> values = new ArrayList<>();
+                                for (Map.Entry<String, List<Note>> entry : finalNoteHashMap.entrySet()) {
+                                    if (DateUtils.isSameDay(Long.parseLong(entry.getKey()), Long.parseLong(value))) {
+                                        values = entry.getValue();
+                                        finalNoteHashMap1.put(entry.getKey(), values);
+                                    }
+                                }
+                                listAdapter = new NoteAdapter(mainActivity, finalNoteHashMap1);
+                                binding.list.setAdapter(listAdapter);
+                                listAdapter.notifyDataSetChanged();
+                                dialogNetWorkError.dismiss();
+                            }
+                        }));
+            }
+        });
+        binding.idIvRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listAdapter = new NoteAdapter(mainActivity, finalNoteHashMap);
+                binding.list.setAdapter(listAdapter);
+                listAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
 

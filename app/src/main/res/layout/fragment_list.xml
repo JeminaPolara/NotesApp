@@ -39,6 +39,22 @@
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
+            <ImageView
+                android:id="@+id/idIvRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/idIvSearch"
+                android:padding="10dp"
+                android:src="@drawable/ic_refresh"
+                app:tint="@color/white" />
+            <ImageView
+                android:id="@+id/idIvSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/white" />
 
         </RelativeLayout>
 

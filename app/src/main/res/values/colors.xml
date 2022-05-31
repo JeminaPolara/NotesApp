@@ -29,6 +29,7 @@
   <color name="list_bg_pressed">#88336699</color>
   <color name="list_bg_selected">#4e3f51b5</color>
   <color name="list_dark_bg_selected">#950404</color>
+  <color name="trans_black">#99000000</color>
   <color name="list_note_title">#cc000000</color>
   <color name="list_note_dates">#aa000000</color>
   <color name="about_bg">#dd222222</color>
