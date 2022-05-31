@@ -65,16 +65,22 @@ public class ReminderPickers {
                     mCalendar.set(Calendar.MINUTE, mMinute);
                     mCalendar.set(Calendar.SECOND, 0);
 
-                    if (recRule.equals("Minute")) {
-                        mRepeatTime = noOfEvent * milMinute;
-                    } else if (recRule.equals("Hour")) {
-                        mRepeatTime = noOfEvent * milHour;
-                    } else if (recRule.equals("Day")) {
-                        mRepeatTime = noOfEvent * milDay;
-                    } else if (recRule.equals("Week")) {
-                        mRepeatTime = noOfEvent * milWeek;
-                    } else if (recRule.equals("Month")) {
-                        mRepeatTime = noOfEvent * milMonth;
+                    switch (recRule) {
+                        case "Minute":
+                            mRepeatTime = noOfEvent * milMinute;
+                            break;
+                        case "Hour":
+                            mRepeatTime = noOfEvent * milHour;
+                            break;
+                        case "Day":
+                            mRepeatTime = noOfEvent * milDay;
+                            break;
+                        case "Week":
+                            mRepeatTime = noOfEvent * milWeek;
+                            break;
+                        case "Month":
+                            mRepeatTime = noOfEvent * milMonth;
+                            break;
                     }
                     note.setFromReminder(mCalendar.getTimeInMillis());
                     note.setAlarm(mRepeatTime);

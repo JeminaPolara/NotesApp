@@ -834,7 +834,7 @@ public class DetailFragment extends Fragment implements OnReminderPickedListener
         }
         long reminder = note.getFromReminder();
         String rrule = note.getRecurrenceRule();
-        if (reminder != 0) {
+        if (reminder != 0 && note.isReminderFired()) {
             return RecurrenceHelper.getNoteRecurrentReminderText(reminder, rrule);
         } else {
             return getString(R.string.add_reminder)/*RecurrenceHelper.getNoteReminderText(reminder)*/;
@@ -910,8 +910,13 @@ public class DetailFragment extends Fragment implements OnReminderPickedListener
     public void onRecurrenceReminderPicked(String recurrenceRule) {
         noteTmp.setRecurrenceRule(recurrenceRule);
         if (!TextUtils.isEmpty(recurrenceRule)) {
-            binding.fragmentDetailContent.datetime.setText(RecurrenceHelper
-                    .getNoteRecurrentReminderText(noteTmp.getFromReminder(), recurrenceRule));
+            long reminder = noteTmp.getFromReminder();
+            if (reminder != 0 && noteTmp.isReminderFired()) {
+                binding.fragmentDetailContent.datetime.setText(RecurrenceHelper
+                        .getNoteRecurrentReminderText(noteTmp.getFromReminder(), recurrenceRule));
+             } else {
+                binding.fragmentDetailContent.datetime.setText(getString(R.string.add_reminder));
+            }
         }
     }
 

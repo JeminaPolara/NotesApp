@@ -116,15 +116,17 @@ public class SublimePickerFragment extends DialogFragment {
         mTimeText.setText(mTime);
 
 
-        if (note.isReminderFired()) {
+        if (note.isReminderFired() && note.getRecurrenceRule() != null) {
             mRepeatSwitch.setChecked(true);
             mRepeatText.setText("Every " + note.getRecurrenceRule() + "(s)");
-            mRepeatNoText.setText(note.getRecurrenceRule().substring(0, 1));
-            mRepeatNo=note.getRecurrenceRule().substring(0, 1);
+            mRepeatNo = note.getRecurrenceRule().substring(0, 1);
+            mRepeatNoText.setText(mRepeatNo);
             mRepeatType = note.getRecurrenceRule().substring(1);
             mRepeatTypeText.setText(mRepeatType);
         } else {
             mRepeatSwitch.setChecked(false);
+            mRepeatNoText.setText(mRepeatNo);
+            mRepeatTypeText.setText(mRepeatType);
         }
         mRepeatSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +162,7 @@ public class SublimePickerFragment extends DialogFragment {
 
                 final EditText input = new EditText(getActivity());
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setText(mRepeatNoText.getText().toString());
                 alert.setView(input);
                 alert.setPositiveButton("Ok",
                         new DialogInterface.OnClickListener() {
