@@ -63,15 +63,11 @@
 
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/add_reminder_layout_top">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
             <TextView
                 android:id="@+id/details"
@@ -228,7 +224,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-    </ScrollView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/idCVRepeatSub"
@@ -349,7 +344,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20sp">
 
         <Button
             android:id="@+id/idBtnOk"
